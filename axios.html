@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,30 +8,76 @@
     <title>axios</title>
     <link rel="shortcut icon" href="#" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <style>
+        ul li {
+            width: 22%;
+            height: 250px;
+            margin: 16px 0;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            box-shadow: 1px 1px 10px #999;
+        }
+
+        ul li:hover {
+            background-color: lightblue;
+            padding: 8px 13px;
+            font-size: 18px;
+        }
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            padding: 10px 50px;
+            margin: auto;
+        }
+    </style>
     <!-----引入axios函式庫------->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+
 <body>
     <h1 class="header">axios</h1>
     <div class="title"></div>
     <h4></h4>
     <ul></ul>
-    
+
 </body>
+
 </html>
+
 <script>
-/********************************************************
-* 1.api網址  https://kktix.com/events.json
-* 2.發起一個axios請求
-* 3.建立回呼函式(call back function)來處理回應時的各項行為
-* 4.建立錯誤處理
-********************************************************/
+    /********************************************************
+    * 1.api網址  https://kktix.com/events.json
+    * 2.發起一個axios請求
+    * 3.建立回呼函式(call back function)來處理回應時的各項行為
+    * 4.建立錯誤處理
+    ********************************************************/
 
-//發起一個axios請求
+    //發起一個axios請求
+    axios.get("https://kktix.com/events.json")
+        .then(function (response) {
+            console.log(response);
+            let entrys = response.data.entry;
+
+            for (let i = 0; i < entrys.length; i++) {
+                let li = '';
+                li += `<li>`;
+                li += `${entrys[i].title}`;
+                li += `-`;
+                li += `${entrys[i].author.name}`;
+                li += `</li>`;
+                $('ul').append(li);
+            }
+        })
+    //建立回呼函式(call back function)來處理回應時的各項行為
 
 
-//建立回呼函式(call back function)來處理回應時的各項行為
-
-
-//建立錯誤處理
+    //建立錯誤處理
 
 </script>
