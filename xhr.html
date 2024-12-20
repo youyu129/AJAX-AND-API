@@ -30,6 +30,7 @@
     <div class="title"></div>
     <h4></h4>
     <ul></ul>
+    <h2>這裡是頁腳</h2>
 
 </body>
 
@@ -47,9 +48,9 @@
 
     //宣告一個XMLHttpRequest物件
     let xhr = new XMLHttpRequest();
-    // 123
+
     //建立請求的各項設定及實質內容
-    xhr.open('GET', 'https://kktix.con/events.json');
+    xhr.open('GET', 'https://kktix.com/events.json');
 
     //建立得到回應時的各項設定及行為
     // 匿名function 無名function 只使用一次
@@ -59,7 +60,8 @@
         let response = xhr.responseText;
         let data = JSON.parse(response);
         let entrys = data.entry;
-        console.log(JSON.parse.(response));
+        let events = '';
+        console.log(JSON.parse(response));
         for (let i = 0; i < entrys.length; i++) {
             let li = '';
             li += `<li>`;
@@ -67,8 +69,13 @@
             li += `-`;
             li += `${entrys[i].author.name}`;
             li += `</li>`;
-            $('ul').append(li);
+
+            events += li;
         }
+
+        let ul = document.getElementsByTagName('ul')[0];
+        ul.innerHTML = events;
+
     }
 
     //送出請求
