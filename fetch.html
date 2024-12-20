@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,31 @@
     <title>Fetch</title>
     <link rel="shortcut icon" href="#" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <style>
+        ul li {
+            margin: 5px;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            box-shadow: 1px 1px 10px #999;
+        }
+
+        ul li:hover {
+            background-color: lightblue;
+            padding: 8px 13px;
+            font-size: 18px;
+        }
+    </style>
 </head>
+
 <body>
     <h1 class="header">Fetch</h1>
     <div class="title"></div>
     <h4></h4>
     <ul></ul>
-    
+
 </body>
+
 </html>
 <script>
     /********************************************************
@@ -25,11 +43,35 @@
     ********************************************************/
 
     //建立FETCH請求及實質內容
+    fetch('http://kktix.com/events.json')
+        .then(function (response) {
+            // console.log(response.json());
+            return response.json();
+        })
+        .then(function (data) {
+            // console.log(data);
+            let entrys = data.entry;
+            let events = '';
 
+            for (let i = 0; i < entrys.length; i++) {
+                let li = '';
+                li += `<li>`;
+                li += `${entrys[i].title}`;
+                li += `-`;
+                li += `${entrys[i].author.name}`;
+                li += `</li>`;
+
+                events += li;
+            }
+            let ul = document.getElementsByTagName('ul')[0];
+            ul.innerHTML = events;
+        }).catch(function (error) {
+            console.log('錯誤', error);
+        });
 
     //建立回呼函式(call back function)來處理回應時的各項行為
 
 
     //建立錯誤處理
 
-  </script>
+</script>
