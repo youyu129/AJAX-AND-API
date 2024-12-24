@@ -92,7 +92,7 @@
         <td class='p-2'>${item.address}</td>
         <td class='p-2'>
           <button class='btn btn-success'>編輯</button>
-          <button class='btn btn-danger' onclick='del(${item.id})'>刪除</button>
+          <button class='btn btn-danger' onclick='del(${item.id},${item.classroom})'>刪除</button>
           </td>
         </tr>`;
         $("#students").append(row);
@@ -108,7 +108,7 @@
   }
 
   //刪除資料的函式
-  function del(id) {
+  function del(id, classroom) {
     // alert只能點掉 確認要用confirm
     let chk = confirm('確定要刪除嗎？');
 
@@ -117,8 +117,9 @@
     }
 
     // 安全 隱私 會改變資料庫 用post
-    $.post("./api/delete.php", { id }, function () {
-      console.log('deleted');
+    $.post("./api/delete.php", { id, classroom }, function (res) {
+      // console.log(res);
+      query(res);
     })
   }
 
