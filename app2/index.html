@@ -36,6 +36,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
   getClasses();
+  query(101);
   /************************************
   * 1.考慮觸發行為的事件
   * 2.建立監聽行為
@@ -71,7 +72,7 @@
     $.get("./api/query.php", { code }, function (students) {
       let data = JSON.parse(students);
       // console.log(data);
-      let th = `<tr>
+      let th = `<tr class='text-center'>
         <th>學號</th>
         <th>座號</th>
         <th>姓名</th>
