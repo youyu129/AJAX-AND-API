@@ -36,7 +36,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
   getClasses();
-  query(101);
+  // 寫死 hard code
+  // 讓預設打開顯示為101
+  // 但如果101被刪除，就沒有資料了
+  // query(101);
+
   /************************************
   * 1.考慮觸發行為的事件
   * 2.建立監聽行為
@@ -49,6 +53,7 @@
   function getClasses() {
     $.get("./api/get_classes.php", function (classes) {
       let data = JSON.parse(classes);
+      // console.log(data);
       console.log(classes);
       data.forEach(function (item, idx) {
         // item.classroom
@@ -56,6 +61,8 @@
                   <a class="nav-link" href="javascript:query(${item.classroom})">${item.classroom}</a>
                  </li>`
         $("#classesList").append(c);
+
+        query(data[0].classroom);
       })
     })
   }
