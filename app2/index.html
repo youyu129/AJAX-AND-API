@@ -18,7 +18,7 @@
 <body>
   <div class="container">
     <h1 class="header text-center">學生資料管理系統</h1>
-    <button class="btn btn-primary">增加學生</button>
+    <button class="btn btn-primary" onclick="create()">增加學生</button>
     <ul class="nav" id="classesList">
 
     </ul>
@@ -26,6 +26,7 @@
       <table class="table" id="students"></table>
     </div>
   </div>
+  <div id="modal"></div>
 </body>
 
 </html>
@@ -68,8 +69,18 @@
   }
 
   //新增資料的函式
+  //載入新增資料的表單內容
   function create() {
-
+    $.get("./create_form.php", function (html) {
+      $("#modal").html(html);
+      let CreateModal = new bootstrap.Modal('#CreateModal');
+      CreateModal.show();
+      // 關閉時要把整個modal清空 下次才不會又出現
+      // 儲存要變成送出到api/create.php
+      // 怎麼用ajax拿到表單的資料
+      // 如何用ajax將資料傳到後端
+      // 傳完之後表單資料怎麼辦
+    })
   }
 
   //查詢資料的函式
