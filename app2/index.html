@@ -130,22 +130,49 @@
   }
 
   //刪除資料的函式
+
+  // 方法一：刪除資料的函式(刪除之後再要一次資料的方式)
+  // function del(id, classroom) {
+  // (alert只能點掉 確認要用confirm)
+  // let chk = confirm('確定要刪除嗎？');
+
+  // if (chk) {
+
+  // }
+
+  // 安全 隱私 會改變資料庫 用post
+  //刪除資料的函式(刪除之後再要一次資料的方式)
+  // $.post("./api/delete.php", { id, classroom }, function (res) {
+  //    console.log(res);
+  //    query(res);
+  //    })
+  // }
+
+
+
+  // 方法二：直接從畫面上刪除，就不用再撈一次資料庫
   function del(id, btn) {
     // alert只能點掉 確認要用confirm
     let chk = confirm('確定要刪除嗎？');
 
     if (chk) {
 
-
       // 安全 隱私 會改變資料庫 用post
       $.post("./api/delete.php", { id }, function () {
-        // console.log(res);
 
-        // 直接從畫面上刪除，就不用再撈一次資料庫
-        // query(res);
         $(btn).parents('tr').remove();
       })
     }
   }
 
+
+  function del(id) {
+    let chk = confirm('確定要刪除嗎？');
+    if (chk) {
+
+      $.post('./api/delete.php', { id }, function () {
+        console.log('deleted');
+      })
+    }
+  }
 </script>
