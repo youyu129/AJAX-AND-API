@@ -1,5 +1,6 @@
 <!-- Modal -->
-<div class="modal fade" id="CreateModal" tabindex="-1" aria-labelledby="CreateModalLabel" aria-hidden="true">
+<!-- 錯誤訊息 刪除aria-hidden="true"即可(視障的輔助功能) -->
+<div class="modal fade" id="CreateModal" tabindex="-1" aria-labelledby="CreateModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -58,10 +59,14 @@ $("#send").on("click", function() {
         alert("新增完成")
         CreateModal.hide();
 
-        // 全部清空，連記憶體都清空
-        CreateModal.dispose();
-        // 讓html的modal消失
-        $("#modal").html("");
+        $("#CreateModal").on("hidden.bs.modal", function() {
+            // 全部清空，連記憶體都清空
+            CreateModal.dispose();
+            // 讓html的modal消失
+            $("#modal").html("");
+            query(formData.classroom)
+        })
+
 
     })
     // console.log(formData);

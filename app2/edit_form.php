@@ -5,7 +5,8 @@ $row=$Stu->find($_GET['id']);
 ?>
 
 <!-- Modal -->
-<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+<!-- 錯誤訊息 刪除aria-hidden="true"即可(視障的輔助功能) -->
+<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -66,15 +67,19 @@ $("#send").on("click", function() {
         // 重新更新班級資料
         getClasses()
         alert("編輯完成")
-        query(FormData.classroom);
         EditModal.hide();
 
-        // 全部清空，連記憶體都清空
-        EditModal.dispose();
-        // 讓html的modal消失
-        $("#modal").html("");
+        // 在modal完全隱藏的時候在全部清空
+        $("#EditModal").on("hidden.bs.modal", function() {
+            // 全部清空，連記憶體都清空
+            EditModal.dispose();
 
-        // 載入改完後這個班級的資料
+            // 讓html的modal消失
+            $("#modal").html("");
+
+            // 載入改完後這個班級的資料
+            query(FormData.classroom);
+        })
     })
     // console.log(formData);
 })
