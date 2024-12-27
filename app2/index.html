@@ -118,9 +118,9 @@
 
       })
 
-      $("#students button").on('click', function () {
-        $(this).parents('tr').remove();
-      })
+      // $("#students button").on('click', function () {
+      //   $(this).parents('tr').remove();
+      // })
     })
   }
 
@@ -148,6 +148,15 @@
   //    })
   // }
 
+  // function del(id) {
+  // let chk = confirm('確定要刪除嗎？');
+  //    if (chk) {
+  // 
+  //      $.post('./api/delete.php', { id }, function () {
+  //        console.log('deleted');
+  //    })
+  //  }
+  // }
 
 
   // 方法二：直接從畫面上刪除，就不用再撈一次資料庫
@@ -166,13 +175,5 @@
   }
 
 
-  function del(id) {
-    let chk = confirm('確定要刪除嗎？');
-    if (chk) {
 
-      $.post('./api/delete.php', { id }, function () {
-        console.log('deleted');
-      })
-    }
-  }
 </script>
