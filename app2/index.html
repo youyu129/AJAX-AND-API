@@ -27,14 +27,15 @@
     </div>
   </div>
   <div id="modal"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"
+    integrity="sha512-7Pi/otdlbbCR+LnW+F7PwFcSDJOuUJB3OxtEHbg4vSMvzvJjde4Po1v4BR9Gdc9aXNUNFVUY+SK51wWT8WF0Gg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>
 
 </html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"
-  integrity="sha512-7Pi/otdlbbCR+LnW+F7PwFcSDJOuUJB3OxtEHbg4vSMvzvJjde4Po1v4BR9Gdc9aXNUNFVUY+SK51wWT8WF0Gg=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
   getClasses();
   // 寫死 hard code
@@ -54,6 +55,7 @@
   function getClasses() {
     $.get("./api/get_classes.php", function (classes) {
       let data = JSON.parse(classes);
+      $("#classes")
       // console.log(data);
       console.log(classes);
       data.forEach(function (item, idx) {
@@ -68,12 +70,17 @@
     })
   }
 
+  // 在外面宣告為全域，別支程式才能使用
+  // js宣告可以不用給值
+  let CreateModal
+
   //新增資料的函式
   //載入新增資料的表單內容
   function create() {
     $.get("./create_form.php", function (html) {
       $("#modal").html(html);
-      let CreateModal = new bootstrap.Modal('#CreateModal');
+      //  外面宣告過let了 就不用let
+      CreateModal = new bootstrap.Modal('#CreateModal');
       CreateModal.show();
       // 關閉時要把整個modal清空 下次才不會又出現
       // 儲存要變成送出到api/create.php
@@ -90,7 +97,7 @@
     $.get("./api/query.php", { code }, function (students) {
       let data = JSON.parse(students);
       // console.log(data);
-      let th = `<tr class='text-center'>
+      let th = `<tr>
         <th>學號</th>
         <th>座號</th>
         <th>姓名</th>
@@ -110,23 +117,32 @@
         <td class='p-2'>${item.major}</td>
         <td class='p-2'>${item.address}</td>
         <td class='p-2'>
-          <button class='btn btn-success'>編輯</button>
+          <button class='btn btn-success edit' data-id='${item.id}'>編輯</button>
           <button class='btn btn-danger' onclick='del(${item.id},this)'>刪除</button>
           </td>
         </tr>`;
         $("#students").append(row);
 
       })
-
-      // $("#students button").on('click', function () {
-      //   $(this).parents('tr').remove();
-      // })
+      // 編輯
+      $(".edit").on('click', function () {
+        console.log($(this).data('id'));
+        let id = $(this).data('id')
+        getEditForm(id);
+      })
     })
   }
 
-  //編輯資料的函式
-  function update() {
-
+  // 編輯資料的函式
+  // 取得編輯表單的內容
+  function getEditForm(id) {
+    console.log("HI")
+    $.get("./edit_form.php", { id }, function (html) {
+      console.log(html)
+      $("#modal").html(html);
+      let EditModal = new bootstrap.Modal('#EditModal');
+      EditModal.show();
+    })
   }
 
   //刪除資料的函式
@@ -173,7 +189,6 @@
       })
     }
   }
-
 
 
 </script>
