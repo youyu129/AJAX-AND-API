@@ -56,6 +56,10 @@
     $.get("./api/get_classes.php", function (classes) {
       let data = JSON.parse(classes);
       $("#classes")
+
+      // 清空
+      $("#classesList").html('');
+
       // console.log(data);
       console.log(classes);
       data.forEach(function (item, idx) {
@@ -65,8 +69,10 @@
                  </li>`
         $("#classesList").append(c);
 
-        query(data[0].classroom);
       })
+      // if ($("#student").html() == '') {
+      query(data[0].classroom);
+      // }
     })
   }
 
@@ -133,14 +139,17 @@
     })
   }
 
+  // 在外面宣告為全域，別支程式才能使用
+  // js宣告可以不用給值
+  let EditModal
   // 編輯資料的函式
   // 取得編輯表單的內容
   function getEditForm(id) {
-    console.log("HI")
+    // console.log("HI")
     $.get("./edit_form.php", { id }, function (html) {
-      console.log(html)
+      // console.log(html)
       $("#modal").html(html);
-      let EditModal = new bootstrap.Modal('#EditModal');
+      EditModal = new bootstrap.Modal('#EditModal');
       EditModal.show();
     })
   }

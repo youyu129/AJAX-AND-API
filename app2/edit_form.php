@@ -12,7 +12,7 @@ $row=$Stu->find($_GET['id']);
             <!-- <form action="api/insert.php" method="post"> -->
             <form action="#" method="post">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="EditModalLabel">新增學生</h1>
+                    <h1 class="modal-title fs-5" id="EditModalLabel">編輯學生</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -37,7 +37,7 @@ $row=$Stu->find($_GET['id']);
                     <div class="mb-3">
                         <label for="major" class="form-label">科系</label>
                         <input type="text" name="major" class="form-control" id="major" value="<?=$row['major'];?>">
-                        <input type="hidden" name="id" value="<?=$row['id'];?>">
+                        <input type="hidden" name="id" value="<?=$row['id'];?>" id="userId">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -57,7 +57,8 @@ $("#send").on("click", function() {
         'seat_num': $("#seat_num").val(),
         'name': $("#name").val(),
         'classroom': $("#classroom").val(),
-        'major': $("#major").val()
+        'major': $("#major").val(),
+        'id': $("#userId").val()
     }
 
     // function()回呼函式
@@ -65,6 +66,7 @@ $("#send").on("click", function() {
         // 重新更新班級資料
         getClasses()
         alert("編輯完成")
+        query(FormData.classroom);
         EditModal.hide();
 
         // 全部清空，連記憶體都清空
@@ -72,6 +74,7 @@ $("#send").on("click", function() {
         // 讓html的modal消失
         $("#modal").html("");
 
+        // 載入改完後這個班級的資料
     })
     // console.log(formData);
 })
